@@ -1,16 +1,13 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { exec } from 'child_process';
+// import { exec } from 'child_process';
 import { readFileSync } from 'fs';
 
 const SPECIAL_URLS: string = "";
 const SPECIAL_SEED: number = 0;
 
 const redirecrt = (req: VercelRequest, res: VercelResponse) => {
-    const args: string | string[] = req.query.myParam;
+    const args: string | string[] = req.query.seed;
     if (Array.isArray(args)) {
-        res.status(400).send('Bad Request');
-        return;
-    } else if (typeof args !== 'string') {
         res.status(400).send('Bad Request');
         return;
     }
