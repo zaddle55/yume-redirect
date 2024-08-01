@@ -4,7 +4,7 @@ from typing import Set, List
 import yaml
 
 # 设置代理
-# settings.proxy = "https://95.67.205.13:7788"
+# settings.proxy = "https://example.com"
 
 async def search_by_tag(filter: str) -> Set[str]:
     """
@@ -39,12 +39,7 @@ def filter_search(filters: List[str]) -> Set[str]:
         video_urls.update(sync(search_by_tag(filter)))
     return video_urls
 
-# read from target.yaml
 with open("./target.yaml", encoding="utf-8") as f:
     targets: List[str] = yaml.safe_load(f)["filter"].copy()
 
 print(filter_search(targets))
-
-# Output to a json
-# with open("yume_search.json", "w", encoding="utf-8") as f:
-#    json.dump(res, f, ensure_ascii=False, indent=4)

@@ -16,10 +16,16 @@ const redirecrt = (req: VercelRequest, res: VercelResponse) => {
         // 解析seed参数
         const seed: number = parseInt(args) || new Date().getTime();
 
+        console.log(`seed: ${seed}`);
+        
+
         let link: string = "";
 
         // 读取数据库json文件
-        const data: string = readFileSync('./api/data.json', 'utf8');
+        // 获取vercel执行路径
+        let path: string = process.cwd();
+        const data: string = readFileSync(`${path}/database.json`, 'utf-8');
+
         const links: string[] = JSON.parse(data);
 
         // 生成随机数
@@ -40,7 +46,7 @@ const redirecrt = (req: VercelRequest, res: VercelResponse) => {
         res.redirect(link);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send(`Internal Server Error ${args} ${error}`);
     }
 }
 
